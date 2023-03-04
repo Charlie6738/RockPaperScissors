@@ -1,105 +1,124 @@
-function startGame() { // Declare function startGame
-    var rounds = parseInt(document.querySelector(".rounds-input").value); // Define rounds as value of rounds-input converted to int
-    var playerScore = 0; // Declare playerScore and define as 0
-    var computerScore = 0;
-    if (rounds > 0 && !isNaN(rounds)) { // If rounds is more than 0 and rounds is not NaN (not a number)
-        document.querySelector(".rounds-popup").hidden = true; // Hide rounds-popup
-        document.querySelector(".rounds").textContent = rounds; // Set text content of element rounds to variable rounds
-        Game(); // Call Game()
-    }
-    else { // Else
-        document.querySelector(".err-msg").hidden = false; // Show err-msg, don't start the game
-    }
-    
-    function Game() { // Declare function Game
-        let playerChoice; // Declare playerChoice
-        document.querySelector(".rock-button").addEventListener('click',function () { // When rock-button is clicked
-            playerChoice = "rock"; // Define playerChoice as rock
-        });
-        document.querySelector(".paper-button").addEventListener('click',function () { // When paper-button is clicked
-            playerChoice = "paper"; // Define playerChoice as paper
-        });
-        document.querySelector(".scissors-button").addEventListener('click',function () { // When scissors-button is clicked
-            playerChoice = "scissors"; // Define playerChoice as scissors
-        });
-        (function waitForClick() { // Declare function waitForClick in brackets so it can be executed instantly 
-            if (playerChoice !== undefined) { // If playerChoice is NOT undefined
-                const choices = ["rock","paper","scissors"]; // Define choices as array of three choices
-                let computerChoice = choices[Math.floor(Math.random() *3)]; // Define computerChoice as random choice from choices
-                roundWinner(playerChoice,computerChoice); // Call roundWinner passing playerChoice and computerChoice as parameters
+// Define rounds and scores
+var rounds;
+var playerScore = 0;
+var computerScore = 0;
 
-                rounds--; // Decrement rounds
-                document.querySelector(".rounds").textContent = rounds; // Set text content of element rounds to variable rounds
-                document.querySelector(".player-score").textContent = playerScore; // Set text content of player-score to playerScore
-                document.querySelector(".computer-score").textContent = computerScore; // Set text content of computer-score to computerScore
-                     
-                if (rounds > 0) { // If rounds is more than 0
-                    Game(); // Call Game() again
-                }
-                else { // Otherwise
-                    gameWinner(); // Call gameWinner()
-                }
-            }
-            else { // Else (if playerChoice is undefineed)
-                setTimeout(waitForClick,250); // Execute again in 250 milliseconds
-            }
-        })(); // Execute function immediately; no need to call it
-   
+// Validate user input upon click of start-button
+$('.start-button').click(() => {
+    rounds = parseInt($('.rounds-input').val()); // Get integer value from rounds-input element
+
+    if (rounds < 1 || isNaN(rounds)) { // If rounds is less than 1 or isn't a number
+        $('.err-msg').show(); // Show error
     }
+    else {
+        $('.rounds-popup').hide(); // Hide popup
+        $('.rounds').html(rounds); // Set inner HTML of rounds element
+        round(); // Call round function
+    }
+});
 
-    function roundWinner(pc,cc) { // Declare function roundWinner taking in two parameters
-        const choices = ["rock","paper","scissors"]; // Define choices as array of three choices
-        const emojis = ["✊","✋","✌️"]; // Define emojis as array of three emojis
-        document.querySelector(".player-choice").textContent = emojis[choices.indexOf(pc)] + pc; // Set text content of player-choice to emoji and text of pc (player choice)
-        document.querySelector(".computer-choice").textContent = emojis[choices.indexOf(cc)] + cc; // Set text content of computer-choicr to emoji and text of cc (computer choice)
+// Function round
+// Both player and computer make their pick, before they are compared to see who won the round and scores are incremented accordingly
+function round() {
+    let playerChoice;
 
-        if (pc === cc) { // If pc is strictly equal to cc
-            document.querySelector(".round-winner").textContent = "It was a draw."; // Set text content of round-winner 
-            playerScore++; // Increment playerScore
-            computerScore++; // Increment computerScore
-        }
-        else if (pc === "rock") { // Else if pc is rock
-            if (cc === "scissors") { // If cc is scissors
-                document.querySelector(".round-winner").textContent = "You won."; // Set text content of round-winner to say player won
-                playerScore++; // Increment playerScore
-            }
-            else { // Otherwise
-                document.querySelector(".round-winner").textContent = "Computer won."; // Set text content of round-winner to say computer won
-                computerScore++; // Increment computerScore
-            }
-        }
-        else if (pc === "paper") { // Else if pc is paper
-            if (cc === "rock") { // If cc is rock
-                document.querySelector(".round-winner").textContent = "You won.";
+    // Player choice set according to button clicked
+    $('.rock-button').click(() => {
+        playerChoice = "rock";
+    });
+
+    $('.paper-button').click(() => {
+        playerChoice = "paper";
+    });
+
+    $('.scissors-button').click(() => {
+        playerChoice = "scissors";
+    });
+
+    // Wait until player has made their pick
+    (function wait() {
+        if (playerChoice) { // If player has chosen
+            // Randomly select computer choice from three options along with corresponding emoji
+            const choices = ["rock","paper","scissors"];
+            const emojis = ["✊","✋","✌️"];
+            let computerChoice = choices[Math.floor(Math.random() *3)];
+            
+            // Set HTML elements to display player and computer choice alongside emojis
+            $('.player-choice').html(emojis[choices.indexOf(playerChoice)]+playerChoice);
+            $('.computer-choice').html(emojis[choices.indexOf(computerChoice)]+computerChoice);
+
+            // If player and computer picked the same, inform it was a draw and increment both scores by 1
+            if (playerChoice === computerChoice) {
+                $('.round-winner').textContent = "It was a draw.";
                 playerScore++;
+                computerScore++;
             }
+        
+            else if (playerChoice === "rock") { // Otherwise if player chose rock
+                if (computerChoice === "scissors") { // Computer chose scissors
+                    $('.round-winner').html("You won the round."); // Set inner HTML of round-winner element to say player won the round
+                    playerScore++; // Increment player score by 1
+                }
+                else { // Since we already checked if the choices were equal, this means computer chose paper
+                    $('.round-winner').html("Computer won the round."); // Set innerHTML of round-winner element to say computer won the round
+                    computerScore++; // Increment computer score by 1
+                }
+            }
+        
+            else if (playerChoice === "paper") {
+                if (computerChoice === "rock") {
+                    $('.round-winner').html("You won the round.");
+                    playerScore++;
+                }
+                else {
+                    $('.round-winner').html("Computer won the round.");
+                    computerScore++;
+                }
+            }
+        
             else {
-                document.querySelector(".round-winner").textContent = "Computer won.";
-                computerScore++;                
+                if (computerChoice === "paper") {
+                    $('.round-winner').html("You won the round.");
+                    playerScore++;
+                }
+                else {
+                    $('.round-winner').html("Computer won the round.");
+                    computerScore++;
+                }
+            }
+        
+            rounds--; // Decrement rounds by 1
+
+            // Update HTML elements to reflect new rounds and scores
+            $('.rounds').html(rounds);
+            $('.player-score').html(playerScore);
+            $('.computer-score').html(computerScore);
+        
+            if (rounds > 0) {
+                round(); // Another round
+            }
+            else { // Game over
+                winner();
             }
         }
-        else if (pc === "scissors") { // Else if pc is scissors
-            if (cc === "paper") { // If cc is paper
-                document.querySelector(".round-winner").textContent = "You won.";
-                playerScore++;
-            }
-            else {
-                document.querySelector(".round-winner").textContent = "Computer won.";
-                computerScore++;                
-            }
+        else { // If playerChoice undefined
+            setTimeout(wait,250); // Run wait function again in 250 milliseconds
         }
+    })();
+}
+
+// Function winner
+// Determine the winner of the game
+function winner() {
+    if (playerScore === computerScore) {
+        $('.game-winner').html("It was a draw.");
+    }
+    else if (playerScore > computerScore) {
+        $('.game-winner').html("You won.");
+    }
+    else {
+        $('.game-winner').html("Computer won.");
     }
 
-    function gameWinner() { // Declare function gameWinner
-        if (playerScore > computerScore) { // If playerScore is more than computerScore
-            document.querySelector(".game-winner").textContent = "You win."; // Set text content of game-winner to say player won
-        }
-        else if (computerScore > playerScore) { // Else if computerScore is more than playerScore 
-            document.querySelector(".game-winner").textContent = "Computer wins."; // Set text content of game-winner to say computer won
-        }
-        else { // Otherwise (it was a draw)
-            document.querySelector(".game-winner").textContent = "It's a draw."; // Set text content of game-winner to say it was a draw
-        }
-        document.querySelector(".winner-popup").hidden = false; // Show winner-popup
-    }
+    $('.winner-popup').show(); // Show winner-popup
 }
