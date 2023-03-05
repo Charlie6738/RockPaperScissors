@@ -3,7 +3,7 @@
     <head lang="en">
         <meta charset="utf-8"></meta>
         <title>Rock, Paper, Scissors</title>
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="css/game.css">
     </head>
     <body>
         <section>
@@ -36,17 +36,18 @@
                 <p>How many rounds?</p>
                 <input type="text" class="rounds-input">
                 <br>
-                <button type="button" class="start-button"">Start Game</button>
+                <button type="button" class="start-button">Start Game</button>
                 <p class="err-msg" hidden>Please enter a number above 0.</p>
             </div>
             <div class="winner-popup" hidden>
                 <h2>Game Over</h2>
                 <p class="game-winner">You won.</p>
                 <button type="button" onclick="location.reload()">Play Again</button>
+                <button type="button" onclick="location.href = 'main.html'">Quit</button>
             </div>
 
         </section>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-        <script src="script.js"></script>
+        <script src="js/game.js"></script>
     </body>
 </html>

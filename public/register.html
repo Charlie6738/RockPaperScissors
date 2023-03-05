@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="utf-8">
+        <title>Registration</title>
+        <link rel="stylesheet" href="css/register.css">
+    </head>
+    <body>
+        <section>
+            <h1>Create Account</h1>
+            <p class="err-msg" hidden></p>
+            <form>
+                <fieldset>
+                    <label for="username">Username</label>
+                    <input type="text" class="username" id="username" minlength=3 maxlength=30 required>
+                </fieldset>
+                <fieldset>
+                    <label for="password">Password</label>
+                    <input type="password" class="password" id="password" minlength=8 required>
+                </fieldset>
+                <input type="submit" class="submit-button" value="Sign Up">             
+            </form>
+            <p>Have an account? <a href="login.html">Sign in here.</a></p>         
+
+        </section>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script src="js/register.js"></script>
+    </body>
+</html>

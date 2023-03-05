@@ -1,3 +1,9 @@
+// Get session and if not signed in, go to login page
+let session = document.cookie.split("; ").find((row) => row.startsWith("session=")) ?.split("=")[1];
+if (!session) {
+    location.href = "login.html";
+}
+
 // Define rounds and scores
 var rounds;
 var playerScore = 0;
@@ -44,45 +50,45 @@ function round() {
             let computerChoice = choices[Math.floor(Math.random() *3)];
             
             // Set HTML elements to display player and computer choice alongside emojis
-            $('.player-choice').html(emojis[choices.indexOf(playerChoice)]+playerChoice);
-            $('.computer-choice').html(emojis[choices.indexOf(computerChoice)]+computerChoice);
+            $('.player-choice').text(emojis[choices.indexOf(playerChoice)]+playerChoice);
+            $('.computer-choice').text(emojis[choices.indexOf(computerChoice)]+computerChoice);
 
             // If player and computer picked the same, inform it was a draw and increment both scores by 1
             if (playerChoice === computerChoice) {
-                $('.round-winner').textContent = "It was a draw.";
+                $('.round-winner').text("It was a draw.");
                 playerScore++;
                 computerScore++;
             }
         
             else if (playerChoice === "rock") { // Otherwise if player chose rock
                 if (computerChoice === "scissors") { // Computer chose scissors
-                    $('.round-winner').html("You won the round."); // Set inner HTML of round-winner element to say player won the round
+                    $('.round-winner').text("You won the round."); // Set text of round-winner element to say player won the round
                     playerScore++; // Increment player score by 1
                 }
                 else { // Since we already checked if the choices were equal, this means computer chose paper
-                    $('.round-winner').html("Computer won the round."); // Set innerHTML of round-winner element to say computer won the round
+                    $('.round-winner').text("Computer won the round."); // Set text of round-winner element to say computer won the round
                     computerScore++; // Increment computer score by 1
                 }
             }
         
             else if (playerChoice === "paper") {
                 if (computerChoice === "rock") {
-                    $('.round-winner').html("You won the round.");
+                    $('.round-winner').text("You won the round.");
                     playerScore++;
                 }
                 else {
-                    $('.round-winner').html("Computer won the round.");
+                    $('.round-winner').text("Computer won the round.");
                     computerScore++;
                 }
             }
         
             else {
                 if (computerChoice === "paper") {
-                    $('.round-winner').html("You won the round.");
+                    $('.round-winner').text("You won the round.");
                     playerScore++;
                 }
                 else {
-                    $('.round-winner').html("Computer won the round.");
+                    $('.round-winner').text("Computer won the round.");
                     computerScore++;
                 }
             }
@@ -90,9 +96,9 @@ function round() {
             rounds--; // Decrement rounds by 1
 
             // Update HTML elements to reflect new rounds and scores
-            $('.rounds').html(rounds);
-            $('.player-score').html(playerScore);
-            $('.computer-score').html(computerScore);
+            $('.rounds').text(rounds);
+            $('.player-score').text(playerScore);
+            $('.computer-score').text(computerScore);
         
             if (rounds > 0) {
                 round(); // Another round
@@ -110,15 +116,44 @@ function round() {
 // Function winner
 // Determine the winner of the game
 function winner() {
-    if (playerScore === computerScore) {
-        $('.game-winner').html("It was a draw.");
-    }
-    else if (playerScore > computerScore) {
-        $('.game-winner').html("You won.");
-    }
-    else {
-        $('.game-winner').html("Computer won.");
-    }
+    // Send POST request to /main to get username from session
+    $.post({
+        url: "/main",
+        data: {
+            session: session
+        },
+        success: (res) => {
+            let username = res['username'];
 
-    $('.winner-popup').show(); // Show winner-popup
+            // If player won, send POST request to /streakincrement to increase winstreak
+            if (playerScore > computerScore) {
+                $.post({
+                    url: "/streakincrement",
+                    data: {
+                        username: username
+                    }
+                });
+        
+                $('.game-winner').text("You won."); // Display player won
+            }
+            // If player lost or drew with computer, send POST request to /streakreset to set their winstreak to 0
+            else {
+                $.post({
+                    url: "/streakreset",
+                    data: {
+                        username: username
+                    }
+                });
+        
+                if (playerScore === computerScore) { // If player and computer drew
+                    $('.game-winner').text("It was a draw.");
+                }
+                else { // If computer won
+                    $('.game-winner').text("Computer won.");
+                }
+            }
+        
+            $('.winner-popup').show(); // Show hidden winner popup
+        }
+    });
 }

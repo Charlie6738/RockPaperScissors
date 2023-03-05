@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="utf-8">
+        <title>Login</title>
+        <link rel="stylesheet" href="css/login.css">
+    </head>
+    <body>
+        <section>
+            <h1>Sign In</h1>
+            <p class="err-msg" hidden></p>
+            <form>
+                <fieldset>
+                    <label for="username">Username</label>
+                    <input type="text" class="username" id="username" required>
+                </fieldset>
+                <fieldset>
+                    <label for="password">Password</label>
+                    <input type="password" class="password" id="password" required>
+                </fieldset>
+                <input type="submit" class="submit-button" value="Sign In">
+            </form>
+            <p>No account? <a href="register.html">Create one here</a></p>         
+        </section>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script src="js/login.js"></script>
+    </body>
+</html>
