@@ -4,6 +4,38 @@ if (!session) {
     location.href = "login.html";
 }
 
+// Send POST request to /leaderboard
+$.post({
+    url: '/leaderboard',
+    // When response received
+    success: (res) => {
+        if (res['success']) { // If request successful
+            let topTen = res['topten']; // Get top 10 users
+    
+            // Loop from 0 to length of topTen, in case there are less than 10 users registered overall
+            for (let i = 0; i < 10; i++) {
+                // Add row to leaderboard table with place number, username, and winstreak
+                let row;
+                try {
+                    row = $(`<tr>
+                        <td>${i+1}</td>
+                        <td>${topTen[i]['username']}</td>
+                        <td>${topTen[i]['winstreak']}</td>
+                    </tr>`);
+                }
+                catch {
+                    row = $(`<tr>
+                        <td>${i+1}</td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>`);
+                }
+                $('.leaderboard').append(row);
+            }
+        }
+    }
+});
+
 // Send POST request to /main to get username from session
 $.post({
     url: "/main",
@@ -22,14 +54,6 @@ $.post({
             location.href = "login.html";
         }
     }
-});
-
-$('.play-button').click(() => {
-    location.href = "game.html";
-});
-
-$('.leaderboard-button').click(() => {
-    location.href = "leaderboard.html";
 });
 
 $('.signout-button').click(() => {
