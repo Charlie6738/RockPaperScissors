@@ -24,8 +24,8 @@ section {
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     background-color: white;
-    border: 1px solid black;
-    border-radius: 5px;
+    border: none;
+    border-radius: 10px;
     width: 60%;
     height: fit-content;
     text-align: center;
@@ -33,6 +33,7 @@ section {
 
 table {
     width: 100%;
+    padding: 10px;
 }
 
 th, td {
