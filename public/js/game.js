@@ -116,44 +116,34 @@ function round() {
 // Function winner
 // Determine the winner of the game
 function winner() {
-    // Send POST request to /main to get username from session
-    $.post({
-        url: "/main",
-        data: {
-            session: session
-        },
-        success: (res) => {
-            let username = res['username'];
-
-            // If player won, send POST request to /streakincrement to increase winstreak
-            if (playerScore > computerScore) {
-                $.post({
-                    url: "/streakincrement",
-                    data: {
-                        username: username
-                    }
-                });
-        
-                $('.game-winner').text("You won."); // Display player won
+    // If player won, send POST request to /streakincrement to increase winstreak
+    if (playerScore > computerScore) {
+        $.post({
+            url: "/streakincrement",
+            data: {
+                session: session
             }
-            // If player lost or drew with computer, send POST request to /streakreset to set their winstreak to 0
-            else {
-                $.post({
-                    url: "/streakreset",
-                    data: {
-                        username: username
-                    }
-                });
+        });
         
-                if (playerScore === computerScore) { // If player and computer drew
-                    $('.game-winner').text("It was a draw.");
-                }
-                else { // If computer won
-                    $('.game-winner').text("Computer won.");
-                }
+        $('.game-winner').text("You won."); // Display player won
+    }
+    
+    // If player lost or drew with computer, send POST request to /streakreset to set their winstreak to 0
+    else {
+        $.post({
+            url: "/streakreset",
+            data: {
+                session: session
             }
+        });
         
-            $('.winner-popup').show(); // Show hidden winner popup
+        if (playerScore === computerScore) { // If player and computer drew
+            $('.game-winner').text("It was a draw.");
         }
-    });
+        else { // If computer won
+            $('.game-winner').text("Computer won.");
+        }
+        
+    }
+    $('.winner-popup').show(); // Show hidden winner popup
 }
