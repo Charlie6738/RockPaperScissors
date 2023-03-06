@@ -25,7 +25,7 @@ section {
     transform: translate(-50%, -50%);
     background-color: white;
     border: 1px solid black;
-    border-radius: 10px;
+    border-radius: 5px;
     width: 60%;
     height: fit-content;
     text-align: center;
@@ -39,7 +39,7 @@ th, td {
     border: 1px solid black;
 }
 
-.play-button, .leaderboard-button, .signout-button {
+.play-button, .show-leaderboard-button, .signout-button {
     display: block;
     margin-left: auto;
     margin-right: auto;

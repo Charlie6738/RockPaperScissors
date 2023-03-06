@@ -56,6 +56,20 @@ $.post({
     }
 });
 
+$('.play-button').click(() => {
+    location.href = "game.html";
+});
+
+$('.show-leaderboard-button').click(() => {
+    $('body').css("background-color", "rgb(242, 242, 242)");
+    $('.leaderboard-container').show();
+});
+
+$('.close-leaderboard-button').click(() => {
+    $('body').css("background-color", "white");
+    $('.leaderboard-container').hide();
+});
+
 $('.signout-button').click(() => {
     document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
     location.href = "login.html";

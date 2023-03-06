@@ -8,8 +8,8 @@
     <body>
         <section>
             <h1>Welcome, <span class="username"></span></h1>
-            <button type="button" onclick="location.href = 'game.html'"class="play-button">Play Game</button>
-            <button type="button" class="leaderboard-button" onclick="$('.leaderboard-container').show()">View Leaderboard</button>
+            <button type="button" class="play-button">Play Game</button>
+            <button type="button" class="show-leaderboard-button">View Leaderboard</button>
             <button type="button" class="signout-button">Sign Out</button>
         </section>
         <div class="leaderboard-container" hidden>
@@ -22,7 +22,7 @@
                     <th>Win streak</th>
                 </tr>
             </table>
-            <button type="button" onclick="$('.leaderboard-container').hide()">Close</button>
+            <button type="button" class="close-leaderboard-button">Close</button>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
         <script src="js/main.js"></script>
