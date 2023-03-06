@@ -66,3 +66,8 @@ input[type=text] {
     height: 30px;
     text-align: center;
 }
+
+a {
+    color: blue;
+    text-decoration: none;
+}
