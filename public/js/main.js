@@ -61,12 +61,10 @@ $('.play-button').click(() => {
 });
 
 $('.show-leaderboard-button').click(() => {
-    $('body').css("background-color", "rgb(242, 242, 242)");
     $('.leaderboard-container').show();
 });
 
 $('.close-leaderboard-button').click(() => {
-    $('body').css("background-color", "white");
     $('.leaderboard-container').hide();
 });
 

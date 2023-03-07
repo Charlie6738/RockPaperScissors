@@ -24,7 +24,7 @@ section {
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     background-color: white;
-    border: none;
+    border: 1px solid black;
     border-radius: 10px;
     width: 60%;
     height: fit-content;
@@ -47,4 +47,12 @@ th, td {
     margin-bottom: 5px;
     width: 50%;
     height: 35px;
+}
+
+.close-leaderboard-button {
+    position: absolute;
+    top:0;
+    right:0;
+    border: none;
+    background: transparent;
 }

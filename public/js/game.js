@@ -19,7 +19,6 @@ $('.start-button').click(() => {
     else {
         $('.rounds-popup').hide(); // Hide popup
         $('.rounds').html(rounds); // Set inner HTML of rounds element
-        $('body').css("background-color", "white"); // Set background colour to white
         round(); // Call round function
     }
 });
@@ -147,6 +146,5 @@ function winner() {
         
     }
 
-    $('body').css("background-color", "rgb(242, 242, 242)"); // Set background colour to light grey
     $('.winner-popup').show(); // Show hidden winner popup
 }
