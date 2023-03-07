@@ -2,16 +2,16 @@
 Rock paper scissors game with leaderboard system made with HTML, CSS, JavaScript, NodeJS, and SQLite3.
 
 ### Login
-![image](https://user-images.githubusercontent.com/123321721/223126751-f35ebabc-f2c9-4791-be92-37ec12fe353e.png)
+![image](https://user-images.githubusercontent.com/123321721/223382846-7b99dcfa-8af5-462d-b406-cf60cd5adbaf.png)
 ### Registration
-![image](https://user-images.githubusercontent.com/123321721/223126802-99005de4-82e1-41f0-b495-0c5e2ca0cb0e.png)
+![image](https://user-images.githubusercontent.com/123321721/223382981-a2c6d695-e4c6-4fc5-ab4e-ed59394367e8.png)
 ### Main page
-![image](https://user-images.githubusercontent.com/123321721/223126908-5917439a-54b3-4015-bb45-ce4669e8ea20.png)
+![image](https://user-images.githubusercontent.com/123321721/223383105-7afe06de-2967-4dd3-8842-e371ee5d151f.png)
 ### Leaderboard
-![image](https://user-images.githubusercontent.com/123321721/223127003-f9e515bf-e6dc-4d65-a592-6a73119a11c9.png)
+![image](https://user-images.githubusercontent.com/123321721/223383718-c9d680a3-addb-4804-83b4-43ae619f8484.png)
 ### Rounds prompt
-![image](https://user-images.githubusercontent.com/123321721/223127170-d744e7b5-8aec-417f-b1a0-84e1d9ffa393.png)
+![image](https://user-images.githubusercontent.com/123321721/223383910-90cd2e03-44b4-4085-8fc9-d2fb3a5b69c7.png)
 ### Gameplay
-![image](https://user-images.githubusercontent.com/123321721/223127355-5557c939-5b31-4877-8711-bd5dd6d974e4.png)
+![image](https://user-images.githubusercontent.com/123321721/223384036-7ed2c848-1a68-48a1-baf3-dacb9a76934e.png)
 ### Winner popup
-![image](https://user-images.githubusercontent.com/123321721/223127423-7b89674a-b481-40de-a50e-74b162eaa3f0.png)
+![image](https://user-images.githubusercontent.com/123321721/223384211-a27b2787-5c7a-430e-bbff-889c50bd77e0.png)
